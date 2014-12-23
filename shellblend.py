@@ -63,7 +63,7 @@ class OutputToFilePipeHandler(PipeHandler):
 		return None
 
 # This one is a bit of a mess
-def InputFromFilePipeHandler(PipeHandler):
+class InputFromFilePipeHandler(PipeHandler):
 	def __init__(self, filename):
 		self.filename = filename
 	def run(self, pipe_in, pipe_out, pipe_err):
@@ -77,9 +77,9 @@ def InputFromFilePipeHandler(PipeHandler):
 				if not buf: break
 				fdwrite(pipe_out, buf)
 			os.close(pipe_out)
-			os.exit(0)
+			sys.exit(0)
 	def wait_done(self):
-		os.wait(self.child_pid)
+		os.waitpid(self.child_pid, 0)
 		return None
 
 
@@ -168,10 +168,13 @@ class PipedCommand(object):
 		return self.run()
 
 	def from_file(self, filename):
-		self.pipe(InputFromFilePipeHandler(filename))
+		return self.pipe(InputFromFilePipeHandler(filename))
 
 	def p(self, cmd):
 		return self.pipe(cmd)
 
+	def c(self, cmd):
+		return self.pipe(cmd)
+
 	def r(self):
-		return run	
+		return self.run()
