@@ -10,66 +10,66 @@ This library isn't very well written (I wrote most of v1 in a sleep deprived haz
 
 To invoke a command:
 
-'''python
+```python
 import shell
 
 shell.c("git commit -a").run()
-'''
+```
 
 To pipe a command to another command:
 
-'''python
+```python
 import shell
 
 shell.c("ps aux").c("grep java").run()
-'''
+```
 
 To pipe the output of a command to a string:
 
-'''python
+```python
 
 processes = shell.c("ps aux").c("grep java").to_string().run()
-'''
+```
 
 To pipe a string to the input of a command:
 
-'''python
+```python
 
 shell.s("Hello world\nWhat's up?").c("grep what").run()
-'''
+```
 
 To pipe a file to the input of a command:
 
-'''python
+```python
 
 shell.f("myfile.txt").c("grep what").run()
-'''
+```
 
 To pipe the output of a command to a file:
 
-'''python
+```python
 
 shell.c("ps aux").to_file("myfile.txt").run()
-'''
+```
 
 To pipe the output of a command to /dev/null:
 
-'''python
+```python
 
 shell.c("ps aux").to_dev_null().run()
-'''
+```
 
 To get the status of a command:
 
-'''python
+```python
 
 status = shell.c("ps aux").c("grep java").to_dev_null().run()
-'''
+```
 
 To run a command in the background
-'''python
+```python
 
 handle = shell.c("./my_binary").start()
-handle.wait()'''
+handle.wait()```
 
 Note that not everything (nor anything, really) in this readme has been tested. As the ancient romans used to say, "caveat emptor!".
