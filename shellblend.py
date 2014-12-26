@@ -79,7 +79,7 @@ class InputFromFilePipeHandler(PipeHandler):
 			os.close(pipe_out)
 			sys.exit(0)
 	def wait_done(self):
-		os.waitpid(self.child_pid, 0)
+		os.waitpid(self.child_pid, 0`)
 		return None
 
 
@@ -136,6 +136,7 @@ class PipedCommand(object):
 			os.close(write_end)
 			pipe_in = read_end
 		self.commands[-1].run(pipe_in,sys.stdout.fileno())
+		return self
 
 	def wait(self):
 		value = None
@@ -148,24 +149,17 @@ class PipedCommand(object):
 		self.start()
 		return self.wait()
 
-	def to_stdout(self):
-		return run()
-
 	def to_dev_null(self):
-		self.pipe(OutputToDevNullPipeHandler())
-		return self.run()
+		return self.pipe(OutputToDevNullPipeHandler())
 
 	def to_string(self):
-		self.pipe(ToStringPipeHandler())
-		return self.run()
+		return self.pipe(ToStringPipeHandler())
 
 	def to_file(self, filename):
-		self.pipe(OutputToFilePipeHandler(filename, False))
-		return self.run()
+		return self.pipe(OutputToFilePipeHandler(filename, False))
 
-	def append(self, filename):
-		self.pipe(OutputToFilePipeHandler(filename, True))
-		return self.run()
+	def append_file(self, filename):
+		return self.pipe(OutputToFilePipeHandler(filename, True))
 
 	def from_file(self, filename):
 		return self.pipe(InputFromFilePipeHandler(filename))
