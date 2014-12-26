@@ -70,6 +70,7 @@ To run a command in the background
 ```python
 
 handle = shell.c("./my_binary").start()
-handle.wait()```
+handle.wait()
+```
 
 Note that not everything (nor anything, really) in this readme has been tested. As the ancient romans used to say, "caveat emptor!".
