@@ -79,7 +79,7 @@ class InputFromFilePipeHandler(PipeHandler):
 			os.close(pipe_out)
 			sys.exit(0)
 	def wait_done(self):
-		os.waitpid(self.child_pid, 0`)
+		os.waitpid(self.child_pid, 0)
 		return None
 
 
